@@ -1,26 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
-function App() {
+type Events = React.FormEvent<HTMLInputElement>;
+
+const App = (props: any) => {
+  const [input, setInput] = useState('');
+
+  const updateValue = (e: Events) => {
+    setInput(e.currentTarget.value);
+  };
+
+  const handleSubmit = (event: React.FormEvent): void => {
+    event.preventDefault();
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <h1>Do-It-Yourself</h1>
+      <p>{input}</p>
+      <form onSubmit={handleSubmit}>
+        <input type="text" id="input" value={input} onChange={updateValue} />
+        <button>Submit</button>
+      </form>
     </div>
   );
-}
+};
 
 export default App;
