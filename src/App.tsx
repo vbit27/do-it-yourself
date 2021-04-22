@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 
 const App = (props: any) => {
@@ -12,9 +12,12 @@ const App = (props: any) => {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setTodos([...toDos, input]);
-    setInput('');
     console.log(toDos);
   };
+
+  useEffect(() => {
+    setInput('');
+  }, [toDos]);
 
   return (
     <div>
@@ -24,6 +27,11 @@ const App = (props: any) => {
         <input type="text" id="input" value={input} onChange={updateValue} />
         <button>Submit</button>
       </form>
+      <ul>
+        {toDos.map((task, index) => (
+          <li key={index}>{task}</li>
+        ))}
+      </ul>
     </div>
   );
 };
