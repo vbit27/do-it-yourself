@@ -1,9 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import './App.css';
+
+interface Task {
+  id: number;
+  title: string;
+}
 
 const App = (props: any) => {
   const [input, setInput] = React.useState<string>('');
-  const [toDos, setTodos] = React.useState<Array<string>>([]);
+  const [toDos, setTodos] = React.useState<Array<Task>>([]);
 
   const updateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -11,13 +16,9 @@ const App = (props: any) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setTodos([...toDos, input]);
+    setTodos([...toDos, { id: Math.random(), title: input }]);
     console.log(toDos);
   };
-
-  useEffect(() => {
-    setInput('');
-  }, [toDos]);
 
   return (
     <div>
@@ -28,8 +29,8 @@ const App = (props: any) => {
         <button>Submit</button>
       </form>
       <ul>
-        {toDos.map((task, index) => (
-          <li key={index}>{task}</li>
+        {toDos.map((task) => (
+          <li key={task.id}>{task.title}</li>
         ))}
       </ul>
     </div>
