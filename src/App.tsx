@@ -1,17 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './App.css';
 
-type Events = React.FormEvent<HTMLInputElement>;
-
 const App = (props: any) => {
-  const [input, setInput] = useState('');
+  const [input, setInput] = React.useState<string>('');
+  const [toDos, setTodos] = React.useState<Array<string>>([]);
 
-  const updateValue = (e: Events) => {
-    setInput(e.currentTarget.value);
+  const updateValue = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInput(e.target.value);
   };
 
-  const handleSubmit = (event: React.FormEvent): void => {
-    event.preventDefault();
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    setTodos([...toDos, input]);
+    setInput('');
+    console.log(toDos);
   };
 
   return (
